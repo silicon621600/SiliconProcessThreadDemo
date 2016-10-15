@@ -1,4 +1,7 @@
-#include<stdio.h>
+/**
+code from http://blog.csdn.net/liangxanhai/article/details/7752898
+**/
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
@@ -22,15 +25,15 @@ int main()
         exit(1);
     }
     else if(pc>0) exit(0);    //结束父进程
-    
+
     //使子进程独立1.摆脱原会话控制 2.摆脱原进程组的控制 3.摆脱控制中端的控制
-    setsid();       
+    setsid();
     //改变当前工作目录，这也是为了摆脱父进程的影响
-    chdir("/");     
+    chdir("/");
     //重设文件权限掩码
-    umask(0);       
+    umask(0);
     //关闭文件描述符(常说的输入，输出，报错3个文件)，
-    for(i=0;i<MAXFILE;i++)  
+    for(i=0;i<MAXFILE;i++)
             close(i); //因为守护进程要失去了对所属的控制终端的联系，这三个文件要关闭
 
     while(1)
